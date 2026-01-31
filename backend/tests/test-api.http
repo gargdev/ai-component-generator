@@ -1,0 +1,41 @@
+### Health Check
+GET http://localhost:4000/api/health
+
+### Detailed Health
+GET http://localhost:4000/api/health/detailed
+
+### Scrape a website
+POST http://localhost:4000/api/scrape
+Content-Type: application/json
+
+{
+  "url": "https://example.com"
+}
+
+### Get specific section
+POST http://localhost:4000/api/scrape/section
+Content-Type: application/json
+
+{
+  "url": "https://example.com",
+  "sectionType": "hero"
+}
+
+### Generate component
+POST http://localhost:4000/api/analyze/generate
+Content-Type: application/json
+
+{
+  "html": "<div class='hero'><h1>Hello World</h1><p>Welcome to our site</p></div>",
+  "sectionType": "hero",
+  "componentName": "Hero"
+}
+
+### Refine component
+POST http://localhost:4000/api/analyze/refine
+Content-Type: application/json
+
+{
+  "code": "export default function Hero() { return <div>Hello</div> }",
+  "instruction": "Add a title prop and make the text color blue"
+}

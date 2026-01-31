@@ -1,39 +1,47 @@
 {
-  "name": "backend",
+  "name": "component-generator-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend service for website scraping and component generation",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest"
+    "test": "echo \"No tests yet\"",
+    "lint": "eslint . --ext .ts",
+    "cleanup": "ts-node -e \"require('./src/services/storage.service').default.cleanupTempFiles()\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": [
+    "scraping",
+    "react",
+    "components",
+    "ai"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.72.1",
-    "cheerio": "^1.2.0",
-    "cors": "^2.8.6",
-    "dotenv": "^17.2.3",
-    "express": "^5.2.1",
-    "express-rate-limit": "^8.2.1",
-    "helmet": "^8.1.0",
-    "joi": "^18.0.2",
-    "multer": "^2.0.2",
-    "playwright": "^1.58.1",
-    "sharp": "^0.34.5",
-    "winston": "^3.19.0"
+    "@anthropic-ai/sdk": "^0.20.9",
+    "axios": "^1.6.8",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "helmet": "^7.1.0",
+    "joi": "^17.13.1",
+    "multer": "^1.4.5-lts.1",
+    "openai": "^6.17.0",
+    "playwright": "^1.44.0",
+    "sharp": "^0.33.3",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.35",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.1.0",
-    "nodemon": "^3.1.11",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.12.12",
+    "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.4.5"
   }
 }
