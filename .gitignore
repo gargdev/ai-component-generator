@@ -1,0 +1,17 @@
+# Root-level ignore
+node_modules/
+.env*
+
+# Folder-specific ignores
+frontend/node_modules/
+frontend/.next/
+frontend/dist/
+frontend/.env*
+
+backend/node_modules/
+backend/dist/
+backend/.env*
+
+# Logs and OS files
+npm-debug.log*
+.DS_Store
