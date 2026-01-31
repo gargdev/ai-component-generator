@@ -1,11 +1,12 @@
-import { NextAuthOptions } from 'next-auth'
+import { NextAuthConfig } from 'next-auth'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import { db } from './db'
+import { User } from '@prisma/client'
 
-export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db) as any,
+export const authOptions: NextAuthConfig = {
+  adapter: PrismaAdapter(db),
   session: {
     strategy: 'jwt',
   },
@@ -22,23 +23,23 @@ export const authOptions: NextAuthOptions = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<User | null> {
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Invalid credentials')
         }
 
         const user = await db.user.findUnique({
-          where: {
-            email: credentials.email,
+          where: { 
+            email: credentials.email as string,
           },
         })
 
-        if (!user || !user?.password) {
+        if (!user || !user.password) {
           throw new Error('Invalid credentials')
         }
 
         const isCorrectPassword = await bcrypt.compare(
-          credentials.password,
+          credentials.password as string,
           user.password
         )
 
@@ -51,6 +52,10 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           name: user.name,
           image: user.image,
+          password: user.password,
+          emailVerified: user.emailVerified,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
         }
       },
     }),

@@ -1,10 +1,10 @@
 generator client {
   provider = "prisma-client-js"
+  engineType      = "library"
 }
 
 datasource db {
   provider = "postgresql"
-  // url      = env("DATABASE_URL")
 }
 
 model User {
@@ -98,8 +98,8 @@ model Component {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  projectId  String
-  project    Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId   String
+  project     Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
   iterations Iteration[]
 
   @@index([projectId])
